@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICROMARKET TAMAYO</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>MICROMARKET TAMAYO</h1>
+            <img src="FT3.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul class="centered-nav">
+                <li><a href="#" class="tab-link" data-tab="productos">En el colegio</a></li>
+                <li><a href="#" class="tab-link" data-tab="bth">BTH</a></li>
+                <li><a href="#" id="authButton">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenedor del login -->
+    <div class="login-container" id="loginContainer" style="display: none;">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+            <p id="loginError" class="error"></p>
+        </form>
+    </div>
+
+    <!-- Contenido del marketplace (Pestaña productos) -->
+    <main id="productos" class="tab-content" style="display: block;">
+        <h1>Sugerencias de hoy</h1>
+        <div class="item-grid">
+            <div class="item" data-id="1">
+                <img src="Pastel.jpg" alt="Pastel">
+                <p><strong>70bs</strong></p>
+                <p>Pastel</p>
+                <p>Entrega en 2 días</p>
+            </div>
+            <div class="item" data-id="2">
+                <img src="informatica.jpg" alt="Servicios de Programación">
+                <p><strong>50bs</strong></p>
+                <p>Servicios de Programación</p>
+                <p>Desarrollador profesional</p>
+            </div>
+            <div class="item" data-id="3">
+                <img src="Vestido.jpg" alt="Vestido">
+                <p><strong>150bs</strong></p>
+                <p>Vestido</p>
+                <p>Hecho a mano</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Otra pestaña: BTH -->
+    <div id="bth" class="tab-content" style="display: none;">
+        <h1>Bienvenido a BTH</h1>
+        <p>Contenido específico para la pestaña BTH.</p>
+    </div>
+
+    <!-- Detalles del producto -->
+    <div class="item-details" id="itemDetails" style="display: none;">
+        <h2 id="itemTitle">Detalles del Producto</h2>
+        <img id="itemImage" src="" alt="Imagen del Producto">
+        <p id="itemPrice"></p>
+        <p id="itemDescription"></p>
+        <button id="buyButton">Comprar</button>
+        <button id="closeDetails">Cerrar</button>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
