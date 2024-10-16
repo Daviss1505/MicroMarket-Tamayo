@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const loginForm = document.getElementById('loginForm');
-    const loginContainer = document.getElementById('loginContainer');
-    const authButton = document.getElementById('authButton');
-    const closeDetails = document.getElementById('closeDetails');
-    const buyButton = document.getElementById('buyButton');
-    const itemDetails = document.getElementById('itemDetails');
-    const tabs = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+    const loginContainer = document.getElementById("loginContainer");
+    const authButton = document.getElementById("authButton");
+    const closeDetails = document.getElementById("closeDetails");
+    const buyButton = document.getElementById("buyButton");
+    const itemDetails = document.getElementById("itemDetails");
+    const tabs = document.querySelectorAll(".tab-link");
+    const tabContents = document.querySelectorAll(".tab-content");
 
     // Datos de los productos
     const products = {
@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         2: {
             title: 'Servicios de Programación',
-            price: '$500',
-            description: 'Informatica-Porgramación.',
+            price: '50bs',
+            description: 'Informática y Programación.',
             image: 'informatica.jpg',
             chatLink: 'https://chat-con-vendedor.com/programacion'
         },
@@ -46,24 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Mostrar el formulario de login
-    authButton.addEventListener('click', function () {
-        loginContainer.style.display = 'block';
-        tabContents.forEach(content => content.style.display = 'none');
-    });
-
-    // Proceso de login básico
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        if (username === 'Franz Tamayo' && password === '1234') {
-            authButton.textContent = 'Vender';
-            loginContainer.style.display = 'none';
-            document.getElementById('productos').style.display = 'block';
-        } else {
-            document.getElementById('loginError').textContent = 'Credenciales incorrectas';
-        }
+    authButton.addEventListener("click", function () {
+        loginContainer.style.display = loginContainer.style.display === "none" ? "block" : "none";
     });
 
     // Mostrar detalles del producto
@@ -72,20 +56,32 @@ document.addEventListener('DOMContentLoaded', function () {
             const productId = this.getAttribute('data-id');
             const product = products[productId];
             document.getElementById('itemTitle').textContent = product.title;
+            document.getElementById('itemImage').src = product.image;
             document.getElementById('itemPrice').textContent = product.price;
             document.getElementById('itemDescription').textContent = product.description;
-            document.getElementById('itemImage').src = product.image;
+            buyButton.onclick = function () {
+                window.open(product.chatLink, '_blank');
+            };
             itemDetails.style.display = 'block';
-
-            // Redirigir a chat cuando se presiona "Comprar"
-            buyButton.addEventListener('click', function () {
-                window.location.href = product.chatLink;
-            });
         });
     });
 
-    // Cerrar los detalles del producto
+    // Cerrar detalles del producto
     closeDetails.addEventListener('click', function () {
         itemDetails.style.display = 'none';
+    });
+
+    // Simulación de inicio de sesión
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        if (username === "admin" && password === "1234") {
+            alert("Inicio de sesión exitoso");
+            loginContainer.style.display = "none";
+            authButton.textContent = "Vender";
+        } else {
+            document.getElementById("loginError").textContent = "Credenciales incorrectas";
+        }
     });
 });
