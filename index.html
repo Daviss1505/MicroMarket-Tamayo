@@ -9,21 +9,17 @@
 <body>
     <header>
         <div class="header-container">
-            <h1 class="main-title">MICROMARKET TAMAYO</h1>
             <img src="FT3.png" alt="Logo" class="logo">
-            <button id="authButton" class="login-button">Iniciar Sesión</button>
+            <h1>MICROMARKET TAMAYO</h1>
+            <button id="authButton">Iniciar Sesión</button>
         </div>
+        <nav class="secondary-nav">
+            <ul class="centered-nav">
+                <li><a href="#" class="tab-link" data-tab="productos">En el colegio</a></li>
+                <li><a href="#" class="tab-link" data-tab="bth">BTH</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <!-- Nueva barra de navegación para "En el Colegio" y "BTH" -->
-    <nav class="secondary-nav">
-        <ul class="centered-nav">
-            <li><a href="#" class="tab-link" data-tab="productos">En el colegio</a></li>
-            <li><a href="#" class="tab-link" data-tab="bth">BTH</a></li>
-        </ul>
-    </nav>
-
-    <!-- Contenedor del login -->
     <div class="login-container" id="loginContainer" style="display: none;">
         <h2>Iniciar Sesión</h2>
         <form id="loginForm">
@@ -32,13 +28,11 @@
             <button type="submit">Ingresar</button>
             <p id="loginError" class="error"></p>
         </form>
+        <button id="backLoginButton">Atrás</button>
     </div>
-
-    <!-- Contenido del marketplace (Pestaña productos) -->
     <main id="productos" class="tab-content" style="display: block;">
         <h1>Sugerencias de hoy</h1>
         <div class="item-grid">
-            <!-- Ejemplos de productos -->
             <div class="item" data-id="1">
                 <img src="Pastel.jpg" alt="Pastel">
                 <strong>70bs</strong>
@@ -59,14 +53,10 @@
             </div>
         </div>
     </main>
-
-    <!-- Otra pestaña: BTH -->
     <div id="bth" class="tab-content" style="display: none;">
         <h1>Bienvenido a BTH</h1>
         <p>Contenido específico para la pestaña BTH.</p>
     </div>
-
-    <!-- Detalles del producto -->
     <div class="item-details" id="itemDetails" style="display: none;">
         <h2 id="itemTitle">Detalles del Producto</h2>
         <img id="itemImage" src="" alt="Imagen del Producto">
@@ -75,19 +65,23 @@
         <button id="buyButton">Comprar</button>
         <button id="closeDetails">Cerrar</button>
     </div>
-
-    <!-- Formulario de publicación (solo visible tras login) -->
-    <div id="postProductForm" style="display: none;">
-        <h2>Publicar Nuevo Producto</h2>
-        <form id="productForm">
+    <div class="sell-product-container" id="sellProductContainer" style="display: none;">
+        <h2>Vender Producto</h2>
+        <form id="postProductForm">
             <input type="text" id="productTitle" placeholder="Título del producto" required>
             <input type="number" id="productPrice" placeholder="Precio" required>
             <textarea id="productDescription" placeholder="Descripción del producto" required></textarea>
-            <input type="file" id="productImage" accept="image/*" multiple>
+            <input type="file" id="productImage" accept="image/*" required>
+            <label for="productCategory">Categoría:</label>
+            <select id="productCategory">
+                <option value="casual">Casual</option>
+                <option value="bth">BTH</option>
+            </select>
             <button type="submit">Publicar</button>
+            <button type="button" id="cancelSaleButton">Cancelar</button>
         </form>
+        <button id="backSellButton">Atrás</button>
     </div>
-
     <script src="scripts.js"></script>
 </body>
 </html>
