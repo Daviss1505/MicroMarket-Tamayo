@@ -1,36 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const loginForm = document.getElementById("loginForm");
-    const loginContainer = document.getElementById("loginContainer");
-    const authButton = document.getElementById("authButton");
-    const closeDetails = document.getElementById("closeDetails");
-    const buyButton = document.getElementById("buyButton");
-    const itemDetails = document.getElementById("itemDetails");
-    const tabs = document.querySelectorAll(".tab-link");
-    const tabContents = document.querySelectorAll(".tab-content");
-
-    // Datos de los productos
+    const loginForm = document.getElementById('loginForm');
+    const loginContainer = document.getElementById('loginContainer');
+    const authButton = document.getElementById('authButton');
+    const closeDetails = document.getElementById('closeDetails');
+    const buyButton = document.getElementById('buyButton');
+    const itemDetails = document.getElementById('itemDetails');
+    const tabs = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const postProductForm = document.getElementById('postProductForm');
+    
     const products = {
-        1: {
-            title: 'Pastel',
-            price: '70bs',
-            description: 'Un delicioso pastel disponible para entrega en 2 días.',
-            image: 'Pastel.jpg',
-            chatLink: 'https://chat-con-vendedor.com/pastel'
-        },
-        2: {
-            title: 'Servicios de Programación',
-            price: '50bs',
-            description: 'Informática y Programación.',
-            image: 'informatica.jpg',
-            chatLink: 'https://chat-con-vendedor.com/programacion'
-        },
-        3: {
-            title: 'Vestido',
-            price: '45bs',
-            description: 'Vestido hecho a mano, perfecto para cualquier ocasión.',
-            image: 'Vestido.jpg',
-            chatLink: 'https://chat-con-vendedor.com/vestido'
-        }
+        1: { title: 'Pastel', price: '70bs', description: 'Un delicioso pastel disponible para entrega en 2 días.', image: 'Pastel.jpg' },
+        2: { title: 'Servicios de Programación', price: '50bs', description: 'Informática-Porgramación.', image: 'informatica.jpg' },
+        3: { title: 'Vestido', price: '45bs', description: 'Vestido hecho a mano, perfecto para cualquier ocasión.', image: 'Vestido.jpg' }
     };
 
     // Mostrar pestaña activa
@@ -38,16 +20,30 @@ document.addEventListener("DOMContentLoaded", function () {
         tab.addEventListener('click', function (e) {
             e.preventDefault();
             const tabId = this.getAttribute('data-tab');
-            tabContents.forEach(content => {
-                content.style.display = 'none';
-            });
+            tabContents.forEach(content => content.style.display = 'none');
             document.getElementById(tabId).style.display = 'block';
         });
     });
 
     // Mostrar el formulario de login
-    authButton.addEventListener("click", function () {
-        loginContainer.style.display = loginContainer.style.display === "none" ? "block" : "none";
+    authButton.addEventListener('click', function () {
+        loginContainer.style.display = 'block';
+        tabContents.forEach(content => content.style.display = 'none');
+    });
+
+    // Proceso de login básico
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === "Franz Tamayo" && password === "1234") {
+            authButton.textContent = 'Publicar Producto';
+            loginContainer.style.display = 'none';
+            postProductForm.style.display = 'block';
+        } else {
+            document.getElementById('loginError').textContent = 'Credenciales incorrectas';
+        }
     });
 
     // Mostrar detalles del producto
@@ -56,32 +52,40 @@ document.addEventListener("DOMContentLoaded", function () {
             const productId = this.getAttribute('data-id');
             const product = products[productId];
             document.getElementById('itemTitle').textContent = product.title;
-            document.getElementById('itemImage').src = product.image;
             document.getElementById('itemPrice').textContent = product.price;
             document.getElementById('itemDescription').textContent = product.description;
-            buyButton.onclick = function () {
-                window.open(product.chatLink, '_blank');
-            };
+            document.getElementById('itemImage').src = product.image;
             itemDetails.style.display = 'block';
         });
     });
 
-    // Cerrar detalles del producto
+    // Cerrar los detalles del producto
     closeDetails.addEventListener('click', function () {
         itemDetails.style.display = 'none';
     });
 
-    // Simulación de inicio de sesión
-    loginForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        if (username === "admin" && password === "1234") {
-            alert("Inicio de sesión exitoso");
-            loginContainer.style.display = "none";
-            authButton.textContent = "Vender";
-        } else {
-            document.getElementById("loginError").textContent = "Credenciales incorrectas";
-        }
+    // Redirigir a chat cuando se presiona "Comprar"
+    buyButton.addEventListener('click', function () {
+        window.location.href = 'https://chat-con-vendedor.com';
+    });
+
+    // Publicar nuevo producto
+    postProductForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const title = document.getElementById('productTitle').value;
+        const price = document.getElementById('productPrice').value;
+        const description = document.getElementById('productDescription').value;
+
+        // Simular una nueva publicación de producto
+        const newProductHTML = `
+            <div class="item">
+                <img src="default.jpg" alt="${title}">
+                <strong>${price}bs</strong>
+                <p>${title}</p>
+                <p>${description}</p>
+            </div>
+        `;
+        document.querySelector('.item-grid').innerHTML += newProductHTML;
+        alert('Producto publicado con éxito.');
     });
 });
