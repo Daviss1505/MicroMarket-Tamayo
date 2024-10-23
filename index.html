@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Micromarket Tamayo</title>
     <link rel="stylesheet" href="styles.css">
+    <link> 
 </head>
 <body>
     <header>
@@ -12,6 +13,7 @@
             <img src="FT3.png" alt="Logo" class="logo">
             <h1>MICROMARKET TAMAYO</h1>
             <button id="authButton">Iniciar Sesión</button>
+            <button id="sellButton" style="display: none;">Vender</button>
         </div>
         <nav class="secondary-nav">
             <ul class="centered-nav">
@@ -20,6 +22,7 @@
             </ul>
         </nav>
     </header>
+
     <div class="login-container" id="loginContainer" style="display: none;">
         <h2>Iniciar Sesión</h2>
         <form id="loginForm">
@@ -30,33 +33,49 @@
         </form>
         <button id="backLoginButton">Atrás</button>
     </div>
+
     <main id="productos" class="tab-content" style="display: block;">
         <h1>Sugerencias de hoy</h1>
         <div class="item-grid">
-            <div class="item" data-id="1">
+            <div class="item" data-id="1" data-whatsapp="https://wa.me/5491111111111?text=Estoy%20interesado%20en%20el%20Pastel">
                 <img src="Pastel.jpg" alt="Pastel">
                 <strong>70bs</strong>
                 <p>Pastel</p>
                 <p>Entrega en 2 días</p>
             </div>
-            <div class="item" data-id="2">
+            <div class="item" data-id="2" data-whatsapp="https://wa.me/5492222222222?text=Estoy%20interesado%20en%20los%20Servicios%20de%20Programación">
                 <img src="informatica.jpg" alt="Servicios de Programación">
                 <strong>50bs</strong>
                 <p>Servicios de Programación</p>
                 <p>Desarrollador profesional</p>
             </div>
-            <div class="item" data-id="3">
+            <div class="item" data-id="3" data-whatsapp="https://wa.me/5493333333333?text=Estoy%20interesado%20en%20el%20Vestido">
                 <img src="Vestido.jpg" alt="Vestido">
                 <strong>45bs</strong>
                 <p>Vestido</p>
                 <p>Hecho a mano</p>
             </div>
+            <div class="item" data-id="4" data-whatsapp="https://wa.me/5494444444444?text=Estoy%20interesado%20en%20los%20Servicios%20de%20Confección">
+                <img src="corte y confeccion.jpg" alt="Servicios de corte y confección">
+                <strong>75bs</strong>
+                <p>Servicios de confección</p>
+                <p>Su consulta no molesta</p>
+            </div>
+            <div class="item" data-id="5" data-whatsapp="https://wa.me/5495555555555?text=Estoy%20interesado%20en%20la%20Renta%20del%20Libro%20de%20Filosofía">
+                <img src="free sex.png" alt="FREE SEX (libro)">
+                <strong>3bs</strong>
+                <p>Renta de libro para filosofía</p>
+                <p>Gente seria, por favor...</p>
+            </div>
         </div>
     </main>
+    
+
     <div id="bth" class="tab-content" style="display: none;">
         <h1>Bienvenido a BTH</h1>
         <p>Contenido específico para la pestaña BTH.</p>
     </div>
+
     <div class="item-details" id="itemDetails" style="display: none;">
         <h2 id="itemTitle">Detalles del Producto</h2>
         <img id="itemImage" src="" alt="Imagen del Producto">
@@ -65,6 +84,7 @@
         <button id="buyButton">Comprar</button>
         <button id="closeDetails">Cerrar</button>
     </div>
+
     <div class="sell-product-container" id="sellProductContainer" style="display: none;">
         <h2>Vender Producto</h2>
         <form id="postProductForm">
@@ -82,6 +102,7 @@
         </form>
         <button id="backSellButton">Atrás</button>
     </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>

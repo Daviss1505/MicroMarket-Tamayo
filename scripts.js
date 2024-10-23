@@ -1,110 +1,88 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const loginForm = document.getElementById('loginForm');
-    const loginContainer = document.getElementById('loginContainer');
-    const authButton = document.getElementById('authButton');
-    const closeDetails = document.getElementById('closeDetails');
-    const buyButton = document.getElementById('buyButton');
-    const itemDetails = document.getElementById('itemDetails');
-    const tabs = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const postProductForm = document.getElementById('postProductForm');
-    const sellProductContainer = document.getElementById('sellProductContainer');
-    const backLoginButton = document.getElementById('backLoginButton');
-    const backSellButton = document.getElementById('backSellButton');
-
-    const products = {
-        1: { title: 'Pastel', price: '70bs', description: 'Un delicioso pastel disponible para entrega en 2 días.', image: 'Pastel.jpg' },
-        2: { title: 'Servicios de Programación', price: '50bs', description: 'Informática-Programación.', image: 'informatica.jpg' },
-        3: { title: 'Vestido', price: '45bs', description: 'Vestido hecho a mano, perfecto para cualquier ocasión.', image: 'Vestido.jpg' }
-    };
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function (e) {
-            e.preventDefault();
-            const tabId = this.getAttribute('data-tab');
-            tabContents.forEach(content => content.style.display = 'none');
-            document.getElementById(tabId).style.display = 'block';
-        });
-    });
-
-    authButton.addEventListener('click', function () {
-        loginContainer.style.display = 'block';
-    });
-
-    backLoginButton.addEventListener('click', function () {
-        loginContainer.style.display = 'none';
-    });
-
-    loginForm.addEventListener('submit', function (event) {
+// Tab navigation
+document.querySelectorAll('.tab-link').forEach(function(tabLink) {
+    tabLink.addEventListener('click', function(event) {
         event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        if (username === "Franz Tamayo" && password === "1234") {
-            authButton.style.display = 'none';
-            const sellButton = document.createElement('button');
-            sellButton.textContent = 'Vender';
-            sellButton.addEventListener('click', function () {
-                sellProductContainer.style.display = 'block';
-                document.getElementById('productos').style.display = 'none';
-            });
-            document.querySelector('.header-container').appendChild(sellButton);
-            loginContainer.style.display = 'none';
-        } else {
-            document.getElementById('loginError').textContent = 'Credenciales incorrectas';
-        }
-    });
+        const targetTab = this.getAttribute('data-tab');
 
-    document.querySelectorAll('.item').forEach(item => {
-        item.addEventListener('click', function () {
-            const productId = this.getAttribute('data-id');
-            const product = products[productId];
-            document.getElementById('itemTitle').textContent = product.title;
-            document.getElementById('itemPrice').textContent = product.price;
-            document.getElementById('itemDescription').textContent = product.description;
-            document.getElementById('itemImage').src = product.image;
-            itemDetails.style.display = 'block';
+        document.querySelectorAll('.tab-content').forEach(function(content) {
+            content.style.display = 'none';
         });
-    });
 
-    closeDetails.addEventListener('click', function () {
-        itemDetails.style.display = 'none';
+        document.getElementById(targetTab).style.display = 'block';
     });
+});
 
-    buyButton.addEventListener('click', function () {
-        window.location.href = 'https://chat-con-vendedor.com';
+// Auth button functionality
+document.getElementById('authButton').addEventListener('click', function() {
+    document.getElementById('loginContainer').style.display = 'block';
+});
+
+document.getElementById('backLoginButton').addEventListener('click', function() {
+    document.getElementById('loginContainer').style.display = 'none';
+});
+
+// Login functionality
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username === 'Franz Tamayo' && password === '1234') {
+        alert('Inicio de sesión exitoso');
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('authButton').style.display = 'none';
+        document.getElementById('sellButton').style.display = 'inline-block';
+    } else {
+        document.getElementById('loginError').innerText = 'Credenciales incorrectas, intenta nuevamente.';
+    }
+});
+
+// Mostrar detalles del producto
+document.querySelectorAll('.item').forEach(function(item) {
+    item.addEventListener('click', function() {
+        const title = this.querySelector('p:nth-child(3)').innerText;
+        const price = this.querySelector('strong').innerText;
+        const description = this.querySelector('p:nth-child(4)').innerText;
+        const imgSrc = this.querySelector('img').getAttribute('src');
+        const whatsappLink = this.getAttribute('data-whatsapp'); // Obtener el link de WhatsApp específico
+
+        document.getElementById('itemTitle').innerText = title;
+        document.getElementById('itemPrice').innerText = price;
+        document.getElementById('itemDescription').innerText = description;
+        document.getElementById('itemImage').setAttribute('src', imgSrc);
+
+        document.getElementById('buyButton').setAttribute('data-whatsapp', whatsappLink); // Asignar el link de WhatsApp
+
+        document.getElementById('itemDetails').style.display = 'block';
     });
+});
 
-    postProductForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const title = document.getElementById('productTitle').value;
-        const price = document.getElementById('productPrice').value;
-        const description = document.getElementById('productDescription').value;
-        const category = document.getElementById('productCategory').value;
-        const imageURL = URL.createObjectURL(document.getElementById('productImage').files[0]);
+// Redirigir a WhatsApp cuando se haga clic en "Comprar"
+document.getElementById('buyButton').addEventListener('click', function() {
+    const whatsappLink = this.getAttribute('data-whatsapp');
+    window.open(whatsappLink, '_blank'); // Abrir el enlace de WhatsApp en una nueva ventana
+});
 
-        const newProductHTML = `
-            <div class="item ${category}" data-id="new">
-                <img src="${imageURL}" alt="${title}">
-                <strong>${price}bs</strong>
-                <p>${title}</p>
-                <p>${description}</p>
-            </div>
-        `;
-        document.querySelector('.item-grid').innerHTML += newProductHTML;
-        alert('Producto publicado con éxito.');
-        postProductForm.reset();
-        sellProductContainer.style.display = 'none';
-        document.getElementById('productos').style.display = 'block';
-    });
+// Cerrar detalles del producto
+document.getElementById('closeDetails').addEventListener('click', function() {
+    document.getElementById('itemDetails').style.display = 'none';
+});
 
-    document.getElementById('cancelSaleButton').addEventListener('click', function () {
-        postProductForm.reset();
-        sellProductContainer.style.display = 'none';
-        document.getElementById('productos').style.display = 'block';
-    });
+// Sell product functionality
+document.getElementById('sellButton').addEventListener('click', function() {
+    document.getElementById('sellProductContainer').style.display = 'block';
+});
 
-    backSellButton.addEventListener('click', function () {
-        sellProductContainer.style.display = 'none';
-        document.getElementById('productos').style.display = 'block';
-    });
+document.getElementById('postProductForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Producto publicado con éxito!');
+    document.getElementById('sellProductContainer').style.display = 'none';
+});
+
+document.getElementById('cancelSaleButton').addEventListener('click', function() {
+    document.getElementById('sellProductContainer').style.display = 'none';
+});
+
+document.getElementById('backSellButton').addEventListener('click', function() {
+    document.getElementById('sellProductContainer').style.display = 'none';
 });
